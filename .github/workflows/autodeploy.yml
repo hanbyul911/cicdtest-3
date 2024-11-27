@@ -73,7 +73,7 @@ jobs:
             docker rm web-app || true
             # 새로운 컨테이너 실행
             docker run -d -p 8080:8080 --name web-app --network=mynet \
-            -e MY_DATA_SOURCE=${{ secrets.DATA_SOURCE }} \
-            -e MY_DATA_USERNAME=${{ secrets.DATA_USER }} \
-            -e MY_DATA_PASSWORD=${{ secrets.DATA_PWD }} \
-            ${{ secrets.DOCKER_USER }}/web-app:latest
+              -e MY_DATA_SOURCE="${{ secrets.DATA_SOURCE }}" \
+              -e MY_DATA_USERNAME="${{ secrets.DATA_USER }}" \
+              -e MY_DATA_PASSWORD="${{ secrets.DATA_PWD }}" \
+              ${{ secrets.DOCKER_USER }}/web-app:latest
