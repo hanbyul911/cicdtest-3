@@ -1,0 +1,19 @@
+# spring configuration
+spring:
+  datasource:
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    url: ${MY_DATA_SOURCE}
+#  jdbc:mysql://mydb:3306/myjpa?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: ${MY_DATA_USERNAME}
+    password: ${MY_DATA_PASSWORD}
+
+  # jpa-hibernate configuration
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+
