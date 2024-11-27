@@ -32,7 +32,10 @@ jobs:
           chmod +x ./gradlew && ./gradlew clean build
 
       - name: Docker 이미지 생성 & tag 붙이기
-        run: docker build -t ${{ secrets.DOCKER_USER }}/web-app:latest .
+        run: |
+          docker build -t ${{ secrets.DOCKER_USER }}/web-app:latest .
+          # 빌드 후 Docker 이미지 확인
+          docker images
 
       - name: dockerhub login
         uses: docker/login-action@v3
@@ -41,7 +44,10 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: dockerhub 에 생성한 이미지 푸시하기
-        run : docker push ${{ secrets.DOCKER_USER }}/web-app:latest
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/web-app:latest
+          # 푸시 후 로컬 이미지 확인
+          docker images
 
   deploy:
     runs-on: ubuntu-latest
@@ -60,6 +66,8 @@ jobs:
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
             # docker 이미지 풀
             docker pull ${{ secrets.DOCKER_USER }}/web-app:latest
+            # 풀 후 로컬 이미지 확인
+            docker images
             # 기존 컨테이너 중지 & 삭제
             docker stop web-app || true
             docker rm web-app || true
@@ -68,4 +76,4 @@ jobs:
             -e MY_DATA_SOURCE=${{ secrets.DATA_SOURCE }} \
             -e MY_DATA_USERNAME=${{ secrets.DATA_USER }} \
             -e MY_DATA_PASSWORD=${{ secrets.DATA_PWD }} \
-            ${{ secrets.DOCKER_USER}}/web-app:latest
+            ${{ secrets.DOCKER_USER }}/web-app:latest
