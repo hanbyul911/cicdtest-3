@@ -49,7 +49,7 @@ jobs:
           script_stop: true
           script: |
             # dockerhub 에 토큰을 가지고 로그인
-            echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USER }} -- password-stdin
+            echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
             # docker 이미지 풀
             docker pull ${{ secrets.DOCKER_USER }}/web-app:latest
             # 기존 컨테이너 중지 & 삭제
