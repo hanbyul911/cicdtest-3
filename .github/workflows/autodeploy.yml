@@ -11,7 +11,7 @@ jobs:
     env:
       MY_DATA_SOURCE: ${{ secrets.DATA_SOURCE }}
       MY_DATA_USERNAME: ${{ secrets.DATA_USER }}
-      MY_DATE_PASSWORD: ${{ secrets.DATA_PWD }}
+      MY_DATA_PASSWORD: ${{ secrets.DATA_PWD }}
 
     steps:
       - name: source code checkout
